@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>가계부 웹사이트</title>
+    <title>세계와시민 상부3조 가계부 웹사이트</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.0.1/chart.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.0.1/chart.min.js"></script>
     <style>
@@ -29,7 +29,7 @@
 </head>
 <body>
     <div class="container">
-        <h1>가계부</h1>
+        <h1>세계와시민 상부3조 가계부</h1>
 
         <!-- 날짜 이동 -->
         <div class="date-control">
