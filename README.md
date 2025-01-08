@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>세계와시민 상부3조 가계부 웹사이트</title>
+    <title>상부3조 가계부 웹사이트</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.0.1/chart.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.0.1/chart.min.js"></script>
     <style>
@@ -29,7 +29,7 @@
 </head>
 <body>
     <div class="container">
-        <h1>세계와시민 상부3조 가계부</h1>
+        <h1>상부3조 가계부</h1>
 
         <!-- 날짜 이동 -->
         <div class="date-control">
@@ -179,36 +179,34 @@
         }
 
         function endBudgetTracking() {
-    const tableBody = document.getElementById('result-table-body');
-    tableBody.innerHTML = '';
+            const tableBody = document.getElementById('result-table-body');
+            tableBody.innerHTML = '';
 
-    // 각 월별로 총 수입과 총 지출을 계산하여 표에 표시
-    monthlyData.forEach((data, index) => {
-        const row = document.createElement('tr');
-        row.innerHTML = `
-            <td>${index + 1}월</td>
-            <td>${data.income}원</td>
-            <td>${data.expense}원</td>
-            <td>${data.income - data.expense}원</td>
-        `;
-        tableBody.appendChild(row);
+            // 각 월별로 총 수입과 총 지출을 계산하여 표에 표시
+            monthlyData.forEach((data, index) => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${index + 1}월</td>
+                    <td>${data.income}원</td>
+                    <td>${data.expense}원</td>
+                    <td>${data.income - data.expense}원</td>
+                `;
+                tableBody.appendChild(row);
 
-        // 가계수지 지표 계산 (지출 / 수입)
-        const expenseRatio = data.income !== 0 ? (data.expense / data.income) * 100 : 0;
-        const guideMessage = expenseRatio <= 70 ? "소비가 적절합니다." : "과소비하였습니다.";
+                // 가계수지 지표 계산 (지출 / 수입)
+                const expenseRatio = data.income !== 0 ? (data.expense / data.income) * 100 : 0;
+                const guideMessage = expenseRatio <= 70 ? "소비가 적절합니다." : "과소비하였습니다.";
 
-        // 각 월에 대한 소비 상태 메시지 추가
-        const messageRow = document.createElement('tr');
-        messageRow.innerHTML = `
-            <td colspan="4">${index + 1}월: ${guideMessage}</td>
-        `;
-        tableBody.appendChild(messageRow);
-    });
+                // 각 월에 대한 소비 상태 메시지 추가
+                const messageRow = document.createElement('tr');
+                messageRow.innerHTML = `
+                    <td colspan="4">${index + 1}월: ${guideMessage}</td>
+                `;
+                tableBody.appendChild(messageRow);
+            });
 
-    document.getElementById('result-summary').classList.remove('hidden');
-}
-
-
+            document.getElementById('result-summary').classList.remove('hidden');
+        }
 
 function endBudgetTracking() {
     const tableBody = document.getElementById('result-table-body');
@@ -217,22 +215,31 @@ function endBudgetTracking() {
     // 각 월별로 총 수입과 총 지출을 계산하여 표에 표시
     monthlyData.forEach((data, index) => {
         const row = document.createElement('tr');
+        const prevIncome = index > 0 ? monthlyData[index - 1].income : 0;
+        const prevExpense = index > 0 ? monthlyData[index - 1].expense : 0;
+
+        // 변화율 계산
+        const incomeChangeRate = prevIncome !== 0 ? ((data.income - prevIncome) / prevIncome) * 100 : 0;
+        const expenseChangeRate = prevExpense !== 0 ? ((data.expense - prevExpense) / prevExpense) * 100 : 0;
+
         row.innerHTML = `
             <td>${index + 1}월</td>
             <td>${data.income}원</td>
             <td>${data.expense}원</td>
             <td>${data.income - data.expense}원</td>
+            <td>수입 변화율: ${incomeChangeRate.toFixed(2)}%</td>
+            <td>지출 변화율: ${expenseChangeRate.toFixed(2)}%</td>
         `;
         tableBody.appendChild(row);
 
         // 가계수지 지표 계산 (총 수입 / 총 지출)
-        const expenseRatio = data.expense !== 0 ? (data.expense / data.income) * 100 : 0;
+        const expenseRatio = data.income !== 0 ? (data.expense / data.income) * 100 : 0;
         const guideMessage = expenseRatio <= 70 ? "소비가 적절합니다." : "과소비하였습니다.";
 
-        // 가계수지 지표 메시지
+        // 각 월에 대한 소비 상태 메시지 추가
         const messageRow = document.createElement('tr');
         messageRow.innerHTML = `
-            <td colspan="4">${index + 1}월: 가계수지 지표 = ${expenseRatio.toFixed(2)}%. ${guideMessage}</td>
+            <td colspan="6">${index + 1}월: 가계수지 지표 = ${expenseRatio.toFixed(2)}%. ${guideMessage}</td>
         `;
         tableBody.appendChild(messageRow);
     });
@@ -242,7 +249,7 @@ function endBudgetTracking() {
 }
         // 초기 화면 업데이트
         updateDateDisplay();
-        
     </script>
 </body>
 </html>
+
