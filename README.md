@@ -58,10 +58,6 @@
         <!-- 현재 남은 금액 표시 -->
         <h2>현재 남은 금액: <span id="current-balance">0</span>원</h2>
 
-        <!-- 일별 데이터 -->
-        <h2>현재 날짜의 데이터</h2>
-        <p>수입: <span id="daily-income-display">0</span>원</p>
-        <p>지출: <span id="daily-expense-display">0</span>원</p>
 
         <!-- 월별 통계와 그래프 -->
         <h2>월별 통계</h2>
